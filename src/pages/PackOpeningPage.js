@@ -206,7 +206,7 @@ const PackOpeningPage = () => {
         `https://api.pokemontcg.io/v2/cards?q=set.id:${selectedSet}&pageSize=100`,
         {
           headers: {
-            "X-Api-Key": "c14d1045-56af-4f05-ba6d-715df872a20c",
+            "X-Api-Key": import.meta.env.VITE_POKEMON_API_KEY,
           },
         }
       );

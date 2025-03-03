@@ -8,5 +8,18 @@ export default defineConfig({
   build: {
     outDir: "dist",
     sourcemap: true,
+    rollupOptions: {
+      onwarn(warning, warn) {
+        // Skip certain warnings in CI
+        if (
+          warning.code === "CIRCULAR_DEPENDENCY" ||
+          warning.code === "THIS_IS_UNDEFINED"
+        ) {
+          return;
+        }
+        // Use default for everything else
+        warn(warning);
+      },
+    },
   },
 });
