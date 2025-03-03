@@ -27,11 +27,26 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: List files before build
+        run: ls -la
+
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
+          ls -la dist || true
         env:
           VITE_POKEMON_API_KEY: ${{ secrets.POKEMON_API_KEY }}
           CI: false
+
+      - name: Verify dist directory
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "dist directory not found!"
+            ls -la
+            exit 1
+          fi
+          echo "dist directory contents:"
+          ls -la dist
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
